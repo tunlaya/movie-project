@@ -11,7 +11,7 @@ import java.util.ArrayList
 class RestRequestServiceImpl(
     private val restTemplate: RestTemplate
 ) : RestRequestService {
-    override fun <T> getForObject(url: String, clazz: Class<T>): T {
+    override fun <T> getForObject(url: String, clazz: Class<T>): T? {
         val messageConverters = ArrayList<HttpMessageConverter<*>>()
         val converter = MappingJackson2HttpMessageConverter()
         converter.supportedMediaTypes = listOf(MediaType.ALL)
@@ -19,5 +19,4 @@ class RestRequestServiceImpl(
         restTemplate.messageConverters = messageConverters
         return restTemplate.getForObject(url, clazz)
     }
-
 }

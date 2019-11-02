@@ -24,5 +24,6 @@ public class MovieDataSynchronizer {
 		//TODO: implement this to sync movie into repository
 		List<Movie> movies = movieService.getMovies();
 		movieRepository.saveAll(movies);
+		movieService.getInvertedIndexSearchData();
 	}
 }

@@ -1,7 +1,13 @@
 package com.wongnai.interview.movie.search;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+import com.wongnai.interview.movie.common.CommonUtil;
+import com.wongnai.interview.movie.external.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -13,6 +19,9 @@ import com.wongnai.interview.movie.MovieSearchService;
 @Component("invertedIndexMovieSearchService")
 @DependsOn("movieDatabaseInitializer")
 public class InvertedIndexMovieSearchService implements MovieSearchService {
+	@Autowired
+	private MovieService movieService;
+
 	@Autowired
 	private MovieRepository movieRepository;
 
@@ -34,7 +43,27 @@ public class InvertedIndexMovieSearchService implements MovieSearchService {
 		// from inverted index for Star and for War so that you get movie ids 1,5,8 for Star and 2,5 for War. The result that
 		// you have to return can be union or intersection of those 2 sets of ids.
 		// By the way, in this assignment, you must use intersection so that it left for just movie id 5.
-
-		return null;
+		Map<String, List<Long>> invertedIndexSearchData = movieService.getInvertedIndexSearchData();
+		List<String> searchTerms = CommonUtil.INSTANCE.spiltSpace(queryText);
+		List<Long> result = Collections.emptyList();
+		for (String term : searchTerms) {
+			List<Long> tempResult1 = invertedIndexSearchData.get(term.toLowerCase());
+			if (result == null || result.isEmpty()) {
+				result = tempResult1;
+			} else {
+				List<Long> tempResult2 = result;
+				result = tempResult1.stream()
+						.distinct()
+						.filter(tempResult2::contains)
+						.collect(Collectors.toList());
+			}
+		}
+		if (result == null || result.isEmpty()) {
+			return Collections.emptyList();
+		}
+		Iterable<Movie> movies = movieRepository.findAllById(result);
+		List<Movie> resultMovie = new ArrayList<>();
+		movies.forEach(resultMovie::add);
+		return resultMovie;
 	}
 }
