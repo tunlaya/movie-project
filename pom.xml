@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>com.wongnai.interview</groupId>
-	<artifactId>cart-dojo</artifactId>
+	<artifactId>movie-project</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
@@ -61,6 +61,11 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>27.0.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jetbrains.kotlin</groupId>
+			<artifactId>kotlin-stdlib</artifactId>
+			<version>1.3.50</version>
 		</dependency>
 	</dependencies>
 
