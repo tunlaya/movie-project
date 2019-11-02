@@ -5,10 +5,10 @@ import com.wongnai.interview.movie.mapper.MovieMapper
 import org.springframework.stereotype.Component
 
 @Component
-class MovieSearchDataServiceImpl(
+class MovieServiceImpl(
     private val movieDataService: MovieDataService,
     private val movieMapper: MovieMapper
-) : MovieSearchDataService {
+) : MovieService {
 
     companion object {
         val movieSearchData = mutableMapOf<String, MutableSet<Movie>>()
@@ -36,5 +36,9 @@ class MovieSearchDataServiceImpl(
         } else {
             movieSearchData[word]?.add(movie)
         }
+    }
+
+    override fun getMovies(): List<Movie> {
+        return movieDataService.fetchAll().map { movieMapper.movieDataToMovie(it) }
     }
 }

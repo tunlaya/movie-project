@@ -2,6 +2,7 @@ package com.wongnai.interview.movie.external
 
 import com.wongnai.interview.movie.Movie
 
-interface MovieSearchDataService {
+interface MovieService {
     fun getSearchData(): Map<String, Set<Movie>>
+    fun getMovies(): List<Movie>
 }
