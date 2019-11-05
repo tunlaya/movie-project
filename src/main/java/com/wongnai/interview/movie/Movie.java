@@ -2,6 +2,7 @@ package com.wongnai.interview.movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -45,5 +46,20 @@ public class Movie {
 
 	public List<String> getActors() {
 		return actors;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Movie movie = (Movie) o;
+		return Objects.equals(id, movie.id) &&
+				Objects.equals(name, movie.name) &&
+				Objects.equals(actors, movie.actors);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, actors);
 	}
 }

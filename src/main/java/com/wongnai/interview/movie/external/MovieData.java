@@ -1,6 +1,7 @@
 package com.wongnai.interview.movie.external;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MovieData {
 	private String title;
@@ -41,5 +42,21 @@ public class MovieData {
 
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		MovieData movieData = (MovieData) o;
+		return year == movieData.year &&
+				Objects.equals(title, movieData.title) &&
+				Objects.equals(cast, movieData.cast) &&
+				Objects.equals(genres, movieData.genres);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(title, year, cast, genres);
 	}
 }

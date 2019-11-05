@@ -3,7 +3,7 @@ package com.wongnai.interview.movie.sync;
 import javax.transaction.Transactional;
 
 import com.wongnai.interview.movie.Movie;
-import com.wongnai.interview.movie.external.MovieService;
+import com.wongnai.interview.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
