@@ -87,10 +87,11 @@
 				<executions>
 					<execution>
 						<id>compile</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
+						<goals> <goal>compile</goal> </goals>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<goals> <goal>test-compile</goal> </goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -109,6 +110,26 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>java-compile</id>
+						<phase>compile</phase>
+						<goals> <goal>compile</goal> </goals>
+					</execution>
+					<execution>
+						<id>java-test-compile</id>
+						<phase>test-compile</phase>
+						<goals> <goal>testCompile</goal> </goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
